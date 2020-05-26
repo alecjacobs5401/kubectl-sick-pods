@@ -32,6 +32,20 @@ type Client struct {
 	namespace string
 }
 
+// PodCondition is a wrapper around a Kubernetes Pod Condition
+type PodCondition struct {
+	Type       string
+	Successful bool
+	Reason     string
+	Message    string
+}
+
+// ContainerStatus is a wrapper around a Kubernetes Pod's Container Status
+type ContainerStatus struct {
+	Name  string
+	Ready bool
+}
+
 // ConfigPathFromDirectory determines the kube config location from the HOME environment variable. If HOME is not defined, return empty.
 func ConfigPathFromDirectory(d string) string {
 	if d != "" {

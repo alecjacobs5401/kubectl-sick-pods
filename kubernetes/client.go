@@ -1,6 +1,9 @@
 package kubernetes
 
 import (
+	"bytes"
+	"io"
+
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
@@ -9,8 +12,8 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 
-	// required by client-go library to auth via oidc
-	_ "k8s.io/client-go/plugin/pkg/client/auth/oidc"
+	// utilities for kubernetes integration
+	_ "k8s.io/client-go/plugin/pkg/client/auth"
 )
 
 // NewClient takes in a ClientConfig and generates a new Client to interface with the
@@ -72,4 +75,23 @@ func (c *Client) Events(selectors EventSelectors) ([]corev1.Event, error) {
 	}
 
 	return eventList.Items, nil
+}
+
+// PodLogs grabs the logs for a specific Pod Container. If container is empty string, the default Pod
+// Container will be used.
+func (c *Client) PodLogs(pod, container string) (string, error) {
+	req := c.client.CoreV1().Pods(c.namespace).GetLogs(pod, &corev1.PodLogOptions{})
+	podLogs, err := req.Stream()
+	if err != nil {
+		return "", errors.Wrap(err, "streaming log results")
+	}
+	defer podLogs.Close()
+
+	buf := new(bytes.Buffer)
+	_, err = io.Copy(buf, podLogs)
+	if err != nil {
+		return "", errors.Wrap(err, "copying streamed log contents to buffer")
+	}
+
+	return buf.String(), nil
 }
