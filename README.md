@@ -15,12 +15,12 @@ Installation steps will install both `kubectl-diagnose` and `kubectl-podevents`
 
 ### Mac
 ```
-curl https://github.com/alecjacobs5401/kubectl-diagnose/releases/download/<VERSION>/kubectl-diagnose-darwin-amd64-<VERSION>.tar.gz | tar -xz -C /usr/local/bin/ kubectl-podevents kubectl-diagnose
+curl -L https://github.com/alecjacobs5401/kubectl-diagnose/releases/download/v<VERSION>/kubectl-diagnose_<VERSION>_darwin_amd64.tar.gz | tar -xz -C /usr/local/bin/ kubectl-podevents kubectl-diagnose
 ```
 
 ### Linux
 ```
-curl https://github.com/alecjacobs5401/kubectl-diagnose/releases/download/<VERSION>/kubectl-diagnose-linux-amd64-<VERSION>.tar.gz | tar -xz -C /usr/local/bin/ kubectl-podevents kubectl-diagnose
+curl -L https://github.com/alecjacobs5401/kubectl-diagnose/releases/download/v<VERSION>/kubectl-diagnose_<VERISON>_linux_amd64.tar.gz | tar -xz -C /usr/local/bin/ kubectl-podevents kubectl-diagnose
 ```
 
 ### Windows
