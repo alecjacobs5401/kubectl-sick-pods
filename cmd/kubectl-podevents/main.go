@@ -6,18 +6,17 @@ import (
 	"text/tabwriter"
 
 	"github.com/alecjacobs5401/kubectl-diagnose/kubernetes"
+	"github.com/alecjacobs5401/kubectl-diagnose/version"
 	"github.com/pkg/errors"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
-
-const version = "0.1.0"
 
 func main() {
 	args := os.Args[1:]
 
 	app := kingpin.New("kubectl podevents", "A kubectl plugin used to view pod events for the given pod selector")
 	app.UsageWriter(os.Stdout)
-	app.Version(version)
+	app.Version(version.Version)
 	app.HelpFlag.Short('h')
 
 	podSelectors := kubernetes.PodSelectors{}

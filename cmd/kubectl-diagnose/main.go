@@ -7,18 +7,17 @@ import (
 	"text/tabwriter"
 
 	"github.com/alecjacobs5401/kubectl-diagnose/kubernetes"
+	"github.com/alecjacobs5401/kubectl-diagnose/version"
 	"github.com/pkg/errors"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
-
-const version = "0.1.0"
 
 func main() {
 	args := os.Args[1:]
 
 	app := kingpin.New("kubectl diagnose", "A kubectl plugin used to find Pods that are in a 'NotReady' state and display debugging information about them")
 	app.UsageWriter(os.Stdout)
-	app.Version(version)
+	app.Version(version.Version)
 	app.HelpFlag.Short('h')
 
 	podSelectors := kubernetes.PodSelectors{}
