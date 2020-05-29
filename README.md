@@ -17,7 +17,7 @@ Installation steps will install both `kubectl-diagnose` and `kubectl-podevents`
 
 ### Mac / Linux
 ```
-curl -sL https://raw.githubusercontent.com/alecjacobs5401/kubectl-diagnose/master/install.sh | bash -s
+curl -sL https://raw.githubusercontent.com/alecjacobs5401/kubectl-diagnose/master/install.sh | sh -s
 ```
 
 ### Windows
