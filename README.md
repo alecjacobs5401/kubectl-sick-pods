@@ -1,5 +1,5 @@
 # kubectl-diagnose
-[![GitHub Release](https://img.shields.io/github/v/release/alecjacobs/kubectl-diagnose.svg?logo=github&style=flat-square)](https://github.com/alecjacobs5401/kubectl-diagnose/releases/tag/latest)
+[![GitHub Release](https://img.shields.io/github/release/alecjacobs5401/kubectl-diagnose.svg?logo=github&style=flat-square)](https://github.com/alecjacobs5401/kubectl-diagnose/releases/latest)
 
 [kubectl plugins](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/) for diagnosing Pods.
 
