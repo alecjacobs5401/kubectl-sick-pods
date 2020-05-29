@@ -36,3 +36,9 @@ changelog:
     exclude:
     - '^docs:'
     - '^test:'
+archives:
+- builds:
+  - kubectl-podevents
+  - kubectl-diagnose
+  files:
+  - LICENSE
