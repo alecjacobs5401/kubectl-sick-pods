@@ -10,5 +10,5 @@ get_latest_release() {
 version=$(get_latest_release)
 os=$(uname -s | tr '[:upper:]' '[:lower:]')
 
-curl -SL https://github.com/alecjacobs5401/kubectl-diagnose/releases/download/v$version/kubectl-diagnose_${version}_${os}_amd64.tar.gz |
+curl -sSL https://github.com/alecjacobs5401/kubectl-diagnose/releases/download/v$version/kubectl-diagnose_${version}_${os}_amd64.tar.gz |
   tar xz -C /usr/local/bin/ kubectl-podevents kubectl-diagnose
