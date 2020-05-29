@@ -13,14 +13,9 @@ Both plugins take standard Pod selection arguments as well as one or multiple po
 
 Installation steps will install both `kubectl-diagnose` and `kubectl-podevents`
 
-### Mac
+### Mac / Linux
 ```
-curl -L https://github.com/alecjacobs5401/kubectl-diagnose/releases/download/v<VERSION>/kubectl-diagnose_<VERSION>_darwin_amd64.tar.gz | tar -xz -C /usr/local/bin/ kubectl-podevents kubectl-diagnose
-```
-
-### Linux
-```
-curl -L https://github.com/alecjacobs5401/kubectl-diagnose/releases/download/v<VERSION>/kubectl-diagnose_<VERISON>_linux_amd64.tar.gz | tar -xz -C /usr/local/bin/ kubectl-podevents kubectl-diagnose
+curl -L https://raw.githubusercontent.com/alecjacobs5401/kubectl-diagnose/master/install.sh | bash -s
 ```
 
 ### Windows
@@ -28,7 +23,7 @@ curl -L https://github.com/alecjacobs5401/kubectl-diagnose/releases/download/v<V
 Download Windows binaries from [releases](https://github.com/alecjacobs5401/kubectl-diagnose/releases)
 
 ## Upgrading
-See installation to upgrade to the version you want.
+See installation.
 
 ## Usage
 
