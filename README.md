@@ -3,6 +3,8 @@
 
 [kubectl plugins](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/) for diagnosing Pods.
 
+The idea for these plugins has been shamelessly stolen from [Melanie Cebula's QCOn London Talk](https://www.infoq.com/presentations/airbnb-kubernetes-services/) and enhanced to be _slightly_ less opinionated.
+
 The `kubectl-diagnose` plugin helps find and debug Kubernetes Pods that are "Not Ready" (that have failing Pod Conditions or Containers)
 
 The `kubectl-podevents` plugin displays all pod events pods in your currently configured namespace.
