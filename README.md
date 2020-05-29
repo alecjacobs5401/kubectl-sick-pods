@@ -79,12 +79,12 @@ Args:
 $ kubectl diagnose
 'bad-pod-764ccf854d-kbsq2' is not ready! Reason Provided: None
 	Failed Pod Conditions:
-		CONDITION	    REASON			    MESSAGE
+		CONDITION	    REASON		MESSAGE
 		Ready		    ContainersNotReady	containers with unready status: [bad-container]
-		ContainersReady	ContainersNotReady	containers with unready status: [bad-container]
+		ContainersReady	    ContainersNotReady	containers with unready status: [bad-container]
 
 	Pod Events:
-		LAST SEEN			            TYPE	REASON			    MESSAGE
+		LAST SEEN			TYPE	REASON			MESSAGE
 		2020-05-29 14:15:32 -0700 PDT	Warning	DNSConfigForming	Search Line limits were exceeded, some search paths have been omitted, the applied search line is: ajacobs-playground.svc.cluster.local svc.cluster.local cluster.local ec2.internal us-east-1.invocadev.com invocadev.com
 
 	Container 'bad-container' is not ready!
@@ -95,7 +95,7 @@ $ kubectl diagnose
 ```
 $ kubectl podevents
 Events for bad-pod-764ccf854d-kbsq2:
-LAST SEEN			            TYPE	REASON		    	MESSAGE
+LAST SEEN			TYPE	REASON		    	MESSAGE
 2020-05-29 14:15:32 -0700 PDT	Warning	DNSConfigForming	Search Line limits were exceeded, some search paths have been omitted, the applied search line is: ajacobs-playground.svc.cluster.local svc.cluster.local cluster.local ec2.internal us-east-1.invocadev.com invocadev.com
 
 Events for redis-59b66855fc-94sn9:
