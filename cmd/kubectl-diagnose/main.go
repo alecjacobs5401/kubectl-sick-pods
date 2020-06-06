@@ -6,7 +6,8 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/alecjacobs5401/kubectl-diagnose/kubernetes"
+	"github.com/alecjacobs5401/kube-client-wrapper/pkg/api"
+	"github.com/alecjacobs5401/kube-client-wrapper/pkg/types"
 	"github.com/alecjacobs5401/kubectl-diagnose/version"
 	"github.com/pkg/errors"
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -20,8 +21,8 @@ func main() {
 	app.Version(version.Version)
 	app.HelpFlag.Short('h')
 
-	podSelectors := kubernetes.PodSelectors{}
-	clientConfig := kubernetes.ClientConfig{}
+	podSelectors := types.PodSelectors{}
+	clientConfig := types.ClientConfig{}
 
 	app.Arg("pod", "A pod name to target (Accepts multiple pod names)").StringsVar(&podSelectors.Names)
 	app.Flag("selector", "Pod Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2)").
@@ -43,7 +44,7 @@ func main() {
 	}
 
 	if clientConfig.ConfigFile == "" {
-		clientConfig.ConfigFile = kubernetes.ConfigPathFromDirectory(os.Getenv("HOME"))
+		clientConfig.ConfigFile = api.ConfigPathFromDirectory(os.Getenv("HOME"))
 	}
 
 	if err := diagnose(podSelectors, clientConfig); err != nil {
@@ -52,8 +53,8 @@ func main() {
 	}
 }
 
-func diagnose(podSelectors kubernetes.PodSelectors, clientConfig kubernetes.ClientConfig) error {
-	client, err := kubernetes.NewClient(clientConfig)
+func diagnose(podSelectors types.PodSelectors, clientConfig types.ClientConfig) error {
+	client, err := api.NewClient(clientConfig)
 	if err != nil {
 		return errors.Wrap(err, "building client")
 	}
@@ -71,13 +72,13 @@ func diagnose(podSelectors kubernetes.PodSelectors, clientConfig kubernetes.Clie
 	}
 
 	for _, pod := range pods {
-		if !kubernetes.PodIsReady(pod) {
+		if !api.PodIsReady(pod) {
 			reason := pod.Status.Reason
 			if reason == "" {
 				reason = "None"
 			}
 			fmt.Printf("'%s' is not ready! Reason Provided: %s\n", pod.Name, reason)
-			failedPodConditions := kubernetes.FailedPodConditions(pod)
+			failedPodConditions := api.FailedPodConditions(pod)
 			if len(failedPodConditions) != 0 {
 				fmt.Println("\tFailed Pod Conditions:")
 				// minwidth, tabwidth, padding, padchar, flags
@@ -93,7 +94,7 @@ func diagnose(podSelectors kubernetes.PodSelectors, clientConfig kubernetes.Clie
 			}
 			fmt.Println("\n\tPod Events:")
 
-			events, err := client.Events(kubernetes.EventSelectors{Field: fmt.Sprintf("involvedObject.name=%s", pod.Name)})
+			events, err := client.Events(types.EventSelectors{Field: fmt.Sprintf("involvedObject.name=%s", pod.Name)})
 			if err != nil {
 				return errors.Wrapf(err, "getting events for pod %s", pod.Name)
 			}
@@ -109,7 +110,7 @@ func diagnose(podSelectors kubernetes.PodSelectors, clientConfig kubernetes.Clie
 			w.Flush()
 			fmt.Println()
 
-			notReadyContainers := kubernetes.NotReadyPodContainerStatus(pod)
+			notReadyContainers := api.NotReadyPodContainerStatus(pod)
 			if len(notReadyContainers) != 0 {
 				for _, container := range notReadyContainers {
 					fmt.Printf("\tContainer '%s' is not ready!\n", container.Name)

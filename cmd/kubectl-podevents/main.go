@@ -5,7 +5,8 @@ import (
 	"os"
 	"text/tabwriter"
 
-	"github.com/alecjacobs5401/kubectl-diagnose/kubernetes"
+	"github.com/alecjacobs5401/kube-client-wrapper/pkg/api"
+	"github.com/alecjacobs5401/kube-client-wrapper/pkg/types"
 	"github.com/alecjacobs5401/kubectl-diagnose/version"
 	"github.com/pkg/errors"
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -19,9 +20,9 @@ func main() {
 	app.Version(version.Version)
 	app.HelpFlag.Short('h')
 
-	podSelectors := kubernetes.PodSelectors{}
-	eventSelectors := kubernetes.EventSelectors{}
-	clientConfig := kubernetes.ClientConfig{}
+	podSelectors := types.PodSelectors{}
+	eventSelectors := types.EventSelectors{}
+	clientConfig := types.ClientConfig{}
 
 	app.Arg("pod", "A pod name to target (Accepts multiple pod names)").StringsVar(&podSelectors.Names)
 	app.Flag("selector", "Pod Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2)").
@@ -47,7 +48,7 @@ func main() {
 	}
 
 	if clientConfig.ConfigFile == "" {
-		clientConfig.ConfigFile = kubernetes.ConfigPathFromDirectory(os.Getenv("HOME"))
+		clientConfig.ConfigFile = api.ConfigPathFromDirectory(os.Getenv("HOME"))
 	}
 
 	if err := podevents(podSelectors, eventSelectors, clientConfig); err != nil {
@@ -56,8 +57,8 @@ func main() {
 	}
 }
 
-func podevents(podSelectors kubernetes.PodSelectors, eventSelectors kubernetes.EventSelectors, clientConfig kubernetes.ClientConfig) error {
-	client, err := kubernetes.NewClient(clientConfig)
+func podevents(podSelectors types.PodSelectors, eventSelectors types.EventSelectors, clientConfig types.ClientConfig) error {
+	client, err := api.NewClient(clientConfig)
 	if err != nil {
 		return errors.Wrap(err, "building client")
 	}
