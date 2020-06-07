@@ -37,6 +37,8 @@ func main() {
 		Short('n').StringVar(&clientConfig.Namespace)
 	app.Flag("context", "The Kubernetes context to use. Defaults to the current context in your kube config file.").
 		StringVar(&clientConfig.Context)
+	app.Flag("all-namespaces", "If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace").
+		Short('A').BoolVar(&clientConfig.AllNamespaces)
 
 	_, err := app.Parse(args)
 	if err != nil {
@@ -78,7 +80,11 @@ func diagnose(podSelectors types.PodSelectors, clientConfig types.ClientConfig) 
 			if reason == "" {
 				reason = "None"
 			}
-			fmt.Printf("'%s' is not ready! Reason Provided: %s\n", pod.Name, reason)
+			podDisplayName := pod.Name
+			if clientConfig.AllNamespaces {
+				podDisplayName = fmt.Sprintf("%s/%s", pod.Namespace, pod.Name)
+			}
+			fmt.Printf("'%s' is not ready! Reason Provided: %s\n", podDisplayName, reason)
 			failedPodConditions := api.FailedPodConditions(pod)
 			if len(failedPodConditions) != 0 {
 				fmt.Println("\tFailed Pod Conditions:")
@@ -97,7 +103,7 @@ func diagnose(podSelectors types.PodSelectors, clientConfig types.ClientConfig) 
 
 			events, err := client.Events(types.EventSelectors{Field: fmt.Sprintf("involvedObject.name=%s", pod.Name)})
 			if err != nil {
-				return errors.Wrapf(err, "getting events for pod %s", pod.Name)
+				return errors.Wrapf(err, "getting events for pod %s", podDisplayName)
 			}
 
 			// minwidth, tabwidth, padding, padchar, flags
@@ -116,7 +122,7 @@ func diagnose(podSelectors types.PodSelectors, clientConfig types.ClientConfig) 
 				for _, container := range notReadyContainers {
 					fmt.Printf("\tContainer '%s' is not ready!\n", container.Name)
 					fmt.Println("\t\tContainer Logs:")
-					logs, err := client.PodLogs(pod.Name, container.Name)
+					logs, err := client.PodLogs(pod, container.Name)
 					if err == nil {
 						for _, log := range strings.Split(logs, "\n") {
 							fmt.Printf("\t\t\t%s\n", log)
