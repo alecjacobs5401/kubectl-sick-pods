@@ -12,7 +12,7 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
-const version = "0.1.1-1"
+const version = "0.2.0-rc1"
 
 func main() {
 	args := os.Args[1:]
