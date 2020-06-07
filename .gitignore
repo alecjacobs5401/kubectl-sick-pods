@@ -4,7 +4,6 @@
 *.dll
 *.so
 *.dylib
-/kubectl-podevents
 /kubectl-diagnose
 /dist
 
@@ -20,5 +19,3 @@
 # CI
 /darwin.tar.gz
 /linux.tar.gz
-/kubectl-podevents.version
-/kubectl-diagnose.version

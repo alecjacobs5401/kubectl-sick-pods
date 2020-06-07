@@ -1,20 +1,4 @@
-# This is an example goreleaser.yaml file with some sane defaults.
-# Make sure to check the documentation at http://goreleaser.com
-before:
-  hooks:
-    - go mod tidy
 builds:
-- id: kubectl-podevents
-  env:
-  - CGO_ENABLED=0
-  main: ./cmd/kubectl-podevents/main.go
-  binary: kubectl-podevents
-  goos:
-  - darwin
-  - linux
-  - windows
-  goarch:
-  - amd64
 - id: kubectl-diagnose
   env:
   - CGO_ENABLED=0
@@ -38,7 +22,7 @@ changelog:
     - '^test:'
 archives:
 - builds:
-  - kubectl-podevents
   - kubectl-diagnose
+  name_template: "{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}"
   files:
   - LICENSE
