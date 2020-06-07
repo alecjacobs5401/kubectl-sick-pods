@@ -17,7 +17,7 @@ const version = "0.1.1-1"
 func main() {
 	args := os.Args[1:]
 
-	app := kingpin.New("kubectl diagnose", "A kubectl plugin used to find Pods that are in a 'NotReady' state and display debugging information about them")
+	app := kingpin.New("kubectl sick-pods", "A kubectl plugin used to find Pods that are in a 'NotReady' state and display debugging information about them")
 	app.UsageWriter(os.Stdout)
 	app.Version(version)
 	app.HelpFlag.Short('h')

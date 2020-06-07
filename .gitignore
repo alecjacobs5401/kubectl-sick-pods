@@ -4,7 +4,7 @@
 *.dll
 *.so
 *.dylib
-/kubectl-diagnose
+/kubectl-sick-pods
 /dist
 
 # Test binary, built with `go test -c`

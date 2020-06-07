@@ -1,5 +1,5 @@
-# kubectl-diagnose
-[![GitHub Release](https://img.shields.io/github/release/alecjacobs5401/kubectl-diagnose.svg?logo=github&style=flat-square)](https://github.com/alecjacobs5401/kubectl-diagnose/releases/latest)
+# kubectl-sick-pods
+[![GitHub Release](https://img.shields.io/github/release/alecjacobs5401/kubectl-sick-pods.svg?logo=github&style=flat-square)](https://github.com/alecjacobs5401/kubectl-sick-pods/releases/latest)
 
 [kubectl plugins](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/) for diagnosing Pods.
 
@@ -18,12 +18,12 @@ kubectl krew install sick-pods
 
 ### Manually for Mac / Linux
 ```
-curl -sL https://raw.githubusercontent.com/alecjacobs5401/kubectl-diagnose/master/install.sh | sh -s
+curl -sL https://raw.githubusercontent.com/alecjacobs5401/kubectl-sick-pods/master/install.sh | sh -s
 ```
 
 ### Manually for Windows
 
-Download Windows binaries from [releases](https://github.com/alecjacobs5401/kubectl-diagnose/releases)
+Download Windows binaries from [releases](https://github.com/alecjacobs5401/kubectl-sick-pods/releases)
 
 ## Upgrading
 ### Using [krew](https://github.com/kubernetes-sigs/krew/)
@@ -36,9 +36,9 @@ See installation.
 
 ## Usage
 
-### `kubectl diagnose`
+### `kubectl sick-pods`
 ```
-usage: kubectl diagnose [<flags>] [<pod>...]
+usage: kubectl sick-pods [<flags>] [<pod>...]
 
 A kubectl plugin used to find Pods that are in a 'NotReady' state and display debugging information about them
 
@@ -59,7 +59,7 @@ Args:
 ## Example Usages
 ### Without Arguments / Flags
 ```
-$ kubectl diagnose
+$ kubectl sick-pods
 'bad-pod-764ccf854d-kbsq2' is not ready! Reason Provided: None
 	Failed Pod Conditions:
 		CONDITION	    REASON		MESSAGE
@@ -79,7 +79,7 @@ $ kubectl diagnose
 
 ### With provided pod names
 ```
-kubectl diagnose pod-abc-123 pod-def-456
+kubectl sick-pods pod-abc-123 pod-def-456
 ```
 
 ## Looking for kubectl-podevents?

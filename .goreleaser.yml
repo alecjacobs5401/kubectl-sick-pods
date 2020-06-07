@@ -1,9 +1,9 @@
 builds:
-- id: kubectl-diagnose
+- id: kubectl-sick-pods
   env:
   - CGO_ENABLED=0
-  main: ./cmd/kubectl-diagnose/main.go
-  binary: kubectl-diagnose
+  main: ./cmd/kubectl-sick-pods/main.go
+  binary: kubectl-sick-pods
   goos:
   - darwin
   - linux
@@ -22,7 +22,7 @@ changelog:
     - '^test:'
 archives:
 - builds:
-  - kubectl-diagnose
+  - kubectl-sick-pods
   name_template: "{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}"
   files:
   - LICENSE
