@@ -1,0 +1,34 @@
+apiVersion: krew.googlecontainertools.github.com/v1alpha2
+kind: Plugin
+metadata:
+  name: sick-pods
+spec:
+  version: {{ .TagName }}
+  homepage: https://github.com/alecjacobs5401/kubectl-sick-pods
+  shortDescription: Find and debug Pods that are "Not Ready"
+  description: |
+    This plugin finds and displays debugging information for Pods
+    that are "Not Ready" in the current namespace.
+    Pods are deemed as "Not Ready" if they have any failing Pod Conditions
+    or have any containers that do not have a "Ready" value.
+    In addition, you can filter which pods you want to show based on labels
+    or field selectors (as well as by pod name(s)).
+  platforms:
+  - selector:
+      matchLabels:
+        os: darwin
+        arch: amd64
+    {{addURIAndSha "https://github.com/alecjacobs5401/kubectl-sick-pods/releases/download/{{ .TagName }}/kubectl-sick-pods_{{ .TagName }}_darwin_amd64.tar.gz" .TagName }}
+    bin: kubectl-sick-pods
+  - selector:
+      matchLabels:
+        os: linux
+        arch: amd64
+    {{addURIAndSha "https://github.com/alecjacobs5401/kubectl-sick-pods/releases/download/{{ .TagName }}/kubectl-sick-pods_{{ .TagName }}_linux_amd64.tar.gz" .TagName }}
+    bin: kubectl-sick-pods
+  - selector:
+      matchLabels:
+        os: windows
+        arch: amd64
+    {{addURIAndSha "https://github.com/alecjacobs5401/kubectl-sick-pods/releases/download/{{ .TagName }}/kubectl-sick-pods_{{ .TagName }}_windows_amd64.tar.gz" .TagName }}
+    bin: kubectl-sick-pods.exe
