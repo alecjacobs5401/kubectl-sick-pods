@@ -22,9 +22,21 @@ spec:
     bin: kubectl-sick-pods
   - selector:
       matchLabels:
+        os: darwin
+        arch: arm64
+    {{addURIAndSha "https://github.com/alecjacobs5401/kubectl-sick-pods/releases/download/{{ .TagName }}/kubectl-sick-pods_{{ .TagName }}_darwin_arm64.tar.gz" .TagName }}
+    bin: kubectl-sick-pods
+  - selector:
+      matchLabels:
         os: linux
         arch: amd64
     {{addURIAndSha "https://github.com/alecjacobs5401/kubectl-sick-pods/releases/download/{{ .TagName }}/kubectl-sick-pods_{{ .TagName }}_linux_amd64.tar.gz" .TagName }}
+    bin: kubectl-sick-pods
+  - selector:
+      matchLabels:
+        os: linux
+        arch: arm64
+    {{addURIAndSha "https://github.com/alecjacobs5401/kubectl-sick-pods/releases/download/{{ .TagName }}/kubectl-sick-pods_{{ .TagName }}_linux_arm64.tar.gz" .TagName }}
     bin: kubectl-sick-pods
   - selector:
       matchLabels:
