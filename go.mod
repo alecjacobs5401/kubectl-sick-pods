@@ -1,6 +1,6 @@
 module github.com/alecjacobs5401/kubectl-sick-pods
 
-go 1.14
+go 1.16
 
 require (
 	github.com/alecjacobs5401/kube-client-wrapper v0.2.1
